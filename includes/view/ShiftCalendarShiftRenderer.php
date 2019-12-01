@@ -2,6 +2,7 @@
 
 namespace Engelsystem;
 
+use Engelsystem\Models\Room;
 use Engelsystem\Models\User\User;
 
 /**
@@ -47,10 +48,10 @@ class ShiftCalendarShiftRenderer
                         $this->renderShiftHead($shift, $class, $shift_signup_state->getFreeEntries()),
                         div('panel-body', [
                             $info_text,
-                            Room_name_render([
-                                'RID'  => $shift['RID'],
-                                'Name' => $shift['room_name']
-                            ])
+                            Room_name_render(Room::make([
+                                'id'   => $shift['RID'],
+                                'name' => $shift['room_name']
+                            ]))
                         ]),
                         $shifts_row
                     ]

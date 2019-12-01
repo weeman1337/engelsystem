@@ -2,6 +2,8 @@
 
 namespace Engelsystem;
 
+use Engelsystem\Models\Room;
+
 class ShiftCalendarRenderer
 {
     /**
@@ -77,10 +79,10 @@ class ShiftCalendarRenderer
 
         foreach ($shifts as $shift) {
             $room_id = $shift['RID'];
-            $header = Room_name_render([
-                'RID'  => $room_id,
-                'Name' => $shift['room_name']
-            ]);
+            $header = Room_name_render(Room::make([
+                'id'   => $room_id,
+                'name' => $shift['room_name']
+            ]));
             if (!isset($lanes[$room_id])) {
                 // initialize room with one lane
                 $lanes[$room_id] = [

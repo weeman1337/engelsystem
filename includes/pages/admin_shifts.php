@@ -1,6 +1,7 @@
 <?php
 
 use Engelsystem\Database\DB;
+use Engelsystem\Models\Room;
 
 /**
  * @return string
@@ -32,10 +33,10 @@ function admin_shifts()
     $shift_over_midnight = true;
 
     // Locations laden
-    $rooms = Rooms();
+    $rooms = Room::query()->orderBy('name')->get();
     $room_array = [];
     foreach ($rooms as $room) {
-        $room_array[$room['RID']] = $room['Name'];
+        $room_array[$room->id] = $room->name;
     }
 
     // Engeltypen laden
@@ -129,7 +130,7 @@ function admin_shifts()
                     $valid = false;
                     error(__('Please split the shift-change hours by colons.'));
                 }
-                $shift_over_midnight = $request->has('shift_over_midnight') 
+                $shift_over_midnight = $request->has('shift_over_midnight')
                     && $request->input('shift_over_midnight') != 'false';
             }
         } else {
@@ -294,7 +295,7 @@ function admin_shifts()
                         . ' - '
                         . date('H:i', $shift['end'])
                         . '<br />'
-                        . Room_name_render(Room($shift['RID'])),
+                        . Room_name_render(Room::find($shift['RID'])),
                     'title'         =>
                         ShiftType_name_render(ShiftType($shifttype_id))
                         . ($shift['title'] ? '<br />' . $shift['title'] : ''),
@@ -443,8 +444,8 @@ function admin_shifts()
                             : '00, 04, 08, 10, 12, 14, 16, 18, 20, 22'
                     ),
                     form_checkbox(
-                        'shift_over_midnight', 
-                        __('Create a shift over midnight.'), 
+                        'shift_over_midnight',
+                        __('Create a shift over midnight.'),
                         $shift_over_midnight
                     )
                 ]),

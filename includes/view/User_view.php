@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Engelsystem\Models\Room;
 use Engelsystem\Models\User\User;
 
 /**
@@ -365,6 +366,11 @@ function User_view_myshift($shift, $user_source, $its_me)
         $shift_info .= User_view_shiftentries($needed_angel_type);
     }
 
+    $room = Room::make([
+        'id' => $shift['room_id'],
+        'name' => $shift['room_name'],
+    ]);
+
     $myshift = [
         'date'       => glyph('calendar')
             . date('Y-m-d', $shift['start']) . '<br>'
@@ -372,7 +378,7 @@ function User_view_myshift($shift, $user_source, $its_me)
             . ' - '
             . date('H:i', $shift['end']),
         'duration'   => sprintf('%.2f', ($shift['end'] - $shift['start']) / 3600) . '&nbsp;h',
-        'room'       => Room_name_render($shift),
+        'room'       => Room_name_render($room),
         'shift_info' => $shift_info,
         'comment'    => ''
     ];

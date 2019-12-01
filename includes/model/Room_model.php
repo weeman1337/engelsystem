@@ -1,6 +1,7 @@
 <?php
 
 use Engelsystem\Database\DB;
+use Engelsystem\Models\Room;
 use Engelsystem\ValidationResult;
 
 /**
@@ -17,23 +18,11 @@ function Room_validate_name($name, $room_id)
         $valid = false;
     }
 
-    if (count(DB::select('SELECT RID FROM `Room` WHERE `Name`=? AND NOT `RID`=?', [
-            $name,
-            $room_id
-        ])) > 0) {
+    if (Room::where('name', $name)->where('id', '<>', $room_id)->count() > 0) {
         $valid = false;
     }
-    return new ValidationResult($valid, $name);
-}
 
-/**
- * returns a list of rooms.
- *
- * @return array
- */
-function Rooms()
-{
-    return DB::select('SELECT * FROM `Room` ORDER BY `Name`');
+    return new ValidationResult($valid, $name);
 }
 
 /**
@@ -43,22 +32,19 @@ function Rooms()
  */
 function Room_ids()
 {
-    $result = DB::select('SELECT `RID` FROM `Room`');
-    return select_array($result, 'RID', 'RID');
+    $result = DB::select('SELECT `id` FROM `rooms`');
+    return select_array($result, 'id', 'id');
 }
 
 /**
  * Delete a room
  *
- * @param int $room_id
+ * @param Room $room
  */
-function Room_delete($room_id)
+function Room_delete(Room $room)
 {
-    $room = Room($room_id);
-    DB::delete('DELETE FROM `Room` WHERE `RID` = ?', [
-        $room_id
-    ]);
-    engelsystem_log('Room deleted: ' . $room['Name']);
+    $room->delete();
+    engelsystem_log('Room deleted: ' . $room->name);
 }
 
 /**
@@ -68,9 +54,7 @@ function Room_delete($room_id)
  */
 function Room_delete_by_name($name)
 {
-    DB::delete('DELETE FROM `Room` WHERE `Name` = ?', [
-        $name
-    ]);
+    Room::where('name', $name)->delete();
     engelsystem_log('Room deleted: ' . $name);
 }
 
@@ -81,20 +65,18 @@ function Room_delete_by_name($name)
  * @param boolean $from_frab Is this a frab imported room?
  * @param string  $map_url   URL to a map tha can be displayed in an iframe
  * @param string description Markdown description
- * @return false|int
+ * @return Room
  */
 function Room_create($name, $from_frab, $map_url, $description)
 {
-    DB::insert('
-          INSERT INTO `Room` (`Name`, `from_frab`, `map_url`, `description`)
-           VALUES (?, ?, ?, ?)
-        ', [
-        $name,
-        (int)$from_frab,
-        $map_url,
-        $description
-    ]);
-    $result = DB::getPdo()->lastInsertId();
+    $room = Room::create(
+        [
+            'name'        => $name,
+            'from_frab'   => $from_frab,
+            'map_url'     => $map_url,
+            'description' => $description,
+        ]
+    );
 
     engelsystem_log(
         'Room created: ' . $name
@@ -103,7 +85,7 @@ function Room_create($name, $from_frab, $map_url, $description)
         . ', description: ' . $description
     );
 
-    return $result;
+    return $room;
 }
 
 /**
@@ -114,25 +96,16 @@ function Room_create($name, $from_frab, $map_url, $description)
  * @param boolean $from_frab   Is this a frab imported room?
  * @param string  $map_url     URL to a map tha can be displayed in an iframe
  * @param string  $description Markdown description
- * @return int
+ * @return Room
  */
 function Room_update($room_id, $name, $from_frab, $map_url, $description)
 {
-    $result = DB::update('
-        UPDATE `Room`
-        SET
-            `Name`=?,
-            `from_frab`=?,
-            `map_url`=?,
-            `description`=?
-        WHERE `RID`=?
-        LIMIT 1', [
-        $name,
-        (int)$from_frab,
-        $map_url,
-        $description,
-        $room_id
-    ]);
+    $room = Room::find($room_id);
+    $room->name = $name;
+    $room->from_frab = $from_frab;
+    $room->map_url = $map_url;
+    $room->description = $description;
+    $room->save();
 
     engelsystem_log(
         'Room updated: ' . $name .
@@ -141,23 +114,5 @@ function Room_update($room_id, $name, $from_frab, $map_url, $description)
         ', description: ' . $description
     );
 
-    return $result;
-}
-
-/**
- * Returns room by id.
- *
- * @param int $room_id RID
- * @return array|null
- */
-function Room($room_id)
-{
-    $room = DB::selectOne('
-        SELECT *
-        FROM `Room`
-        WHERE `RID` = ?', [
-        $room_id
-    ]);
-
-    return empty($room) ? null : $room;
+    return $room;
 }

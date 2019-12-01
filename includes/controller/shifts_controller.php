@@ -1,6 +1,7 @@
 <?php
 
 use Engelsystem\Http\Exceptions\HttpForbidden;
+use Engelsystem\Models\Room;
 use Engelsystem\ShiftSignupState;
 
 /**
@@ -59,7 +60,8 @@ function shift_edit_controller()
 
     $shift = Shift($shift_id);
 
-    $room = select_array(Rooms(), 'RID', 'Name');
+    $rooms = Room::query()->orderBy('name')->get()->toArray();
+    $room = select_array($rooms, 'id', 'name');
     $angeltypes = select_array(AngelTypes(), 'id', 'name');
     $shifttypes = select_array(ShiftTypes(), 'id', 'name');
 
@@ -270,7 +272,7 @@ function shift_controller()
     }
 
     $shifttype = ShiftType($shift['shifttype_id']);
-    $room = Room($shift['RID']);
+    $room = Room::find($shift['RID']);
     $angeltypes = AngelTypes();
     $user_shifts = Shifts_by_user($user->id);
 

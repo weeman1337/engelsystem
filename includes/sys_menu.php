@@ -1,5 +1,6 @@
 <?php
 
+use Engelsystem\Models\Room;
 use Engelsystem\UserHintsRenderer;
 
 /**
@@ -156,8 +157,6 @@ function make_room_navigation($menu)
         return $menu;
     }
 
-    // Get a list of all rooms
-    $rooms = Rooms();
     $room_menu = [];
     if (auth()->can('admin_rooms')) {
         $room_menu[] = toolbar_item_link(page_link_to('admin_rooms'), 'list', __('Manage rooms'));
@@ -165,8 +164,10 @@ function make_room_navigation($menu)
     if (count($room_menu) > 0) {
         $room_menu[] = toolbar_item_divider();
     }
+
+    $rooms = Room::query()->orderBy('name')->get();
     foreach ($rooms as $room) {
-        $room_menu[] = toolbar_item_link(room_link($room), 'map-marker', $room['Name']);
+        $room_menu[] = toolbar_item_link(room_link($room), 'map-marker', $room->name);
     }
     if (count($room_menu) > 0) {
         $menu[] = toolbar_dropdown('map-marker', __('Rooms'), $room_menu);

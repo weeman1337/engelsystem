@@ -1,5 +1,6 @@
 <?php
 
+use Engelsystem\Models\Room;
 use Engelsystem\Models\User\User;
 use Engelsystem\ShiftSignupState;
 use Illuminate\Database\Eloquent\Collection;
@@ -122,7 +123,7 @@ function shift_entry_create_controller_admin($shift, $angeltype)
         $angeltypes_select[$a['id']] = $a['name'];
     }
 
-    $room = Room($shift['RID']);
+    $room = Room::find($shift['RID']);
     return [
         ShiftEntry_create_title(),
         ShiftEntry_create_view_admin($shift, $room, $angeltype, $angeltypes_select, $signup_user, $users_select)
@@ -188,7 +189,7 @@ function shift_entry_create_controller_supporter($shift, $angeltype)
         $users_select[$u->id] = $u->name;
     }
 
-    $room = Room($shift['RID']);
+    $room = Room::find($shift['RID']);
     return [
         ShiftEntry_create_title(),
         ShiftEntry_create_view_supporter($shift, $room, $angeltype, $signup_user, $users_select)
@@ -268,7 +269,7 @@ function shift_entry_create_controller_user($shift, $angeltype)
         redirect(shift_link($shift));
     }
 
-    $room = Room($shift['RID']);
+    $room = Room::find($shift['RID']);
     return [
         ShiftEntry_create_title(),
         ShiftEntry_create_view_user($shift, $room, $angeltype, $comment)

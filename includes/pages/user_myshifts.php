@@ -56,13 +56,11 @@ function user_myshifts()
                     `ShiftEntry`.`UID`,
                     `ShiftTypes`.`name`,
                     `Shifts`.*,
-                    `Room`.`Name`,
                     `AngelTypes`.`name` AS `angel_type`
                 FROM `ShiftEntry`
                 JOIN `AngelTypes` ON (`ShiftEntry`.`TID` = `AngelTypes`.`id`)
                 JOIN `Shifts` ON (`ShiftEntry`.`SID` = `Shifts`.`SID`)
                 JOIN `ShiftTypes` ON (`ShiftTypes`.`id` = `Shifts`.`shifttype_id`)
-                JOIN `Room` ON (`Shifts`.`RID` = `Room`.`RID`)
                 WHERE `ShiftEntry`.`id`=?
                 AND `UID`=?
                 LIMIT 1

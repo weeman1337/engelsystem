@@ -1,4 +1,7 @@
 <?php
+
+use Engelsystem\Models\Room;
+
 /**
  * @return string
  */
@@ -12,23 +15,23 @@ function admin_rooms_title()
  */
 function admin_rooms()
 {
-    $rooms_source = Rooms();
+    $rooms_source = Room::query()->orderBy('name')->get();
     $rooms = [];
     $request = request();
 
     foreach ($rooms_source as $room) {
         $rooms[] = [
             'name'      => Room_name_render($room),
-            'from_frab' => glyph_bool($room['from_frab']),
-            'map_url'   => glyph_bool(!empty($room['map_url'])),
+            'from_frab' => glyph_bool($room->from_frab),
+            'map_url'   => glyph_bool(!empty($room->map_url)),
             'actions'   => table_buttons([
                 button(
-                    page_link_to('admin_rooms', ['show' => 'edit', 'id' => $room['RID']]),
+                    page_link_to('admin_rooms', ['show' => 'edit', 'id' => $room->id]),
                     __('edit'),
                     'btn-xs'
                 ),
                 button(
-                    page_link_to('admin_rooms', ['show' => 'delete', 'id' => $room['RID']]),
+                    page_link_to('admin_rooms', ['show' => 'delete', 'id' => $room->id]),
                     __('delete'),
                     'btn-xs'
                 )
@@ -54,16 +57,16 @@ function admin_rooms()
         }
 
         if (test_request_int('id')) {
-            $room = Room($request->input('id'));
+            $room = Room::find($request->input('id'));
             if (empty($room)) {
                 redirect(page_link_to('admin_rooms'));
             }
 
-            $room_id = $request->input('id');
-            $name = $room['Name'];
-            $from_frab = $room['from_frab'];
-            $map_url = $room['map_url'];
-            $description = $room['description'];
+            $room_id = $room->id;
+            $name = $room->name;
+            $from_frab = $room->from_frab;
+            $map_url = $room->map_url;
+            $description = $room->description;
 
             $needed_angeltypes = NeededAngelTypes_by_room($room_id);
             foreach ($needed_angeltypes as $needed_angeltype) {
@@ -118,17 +121,17 @@ function admin_rooms()
 
                 if ($valid) {
                     if (empty($room_id)) {
-                        $room_id = Room_create($name, $from_frab, $map_url, $description);
+                        $room = Room_create($name, $from_frab, $map_url, $description);
                     } else {
-                        Room_update($room_id, $name, $from_frab, $map_url, $description);
+                        $room = Room_update($room_id, $name, $from_frab, $map_url, $description);
                     }
 
-                    NeededAngelTypes_delete_by_room($room_id);
+                    NeededAngelTypes_delete_by_room($room->id);
                     $needed_angeltype_info = [];
                     foreach ($angeltypes_count as $angeltype_id => $angeltype_count) {
                         $angeltype = AngelType($angeltype_id);
                         if (!empty($angeltype)) {
-                            NeededAngelType_add(null, $angeltype_id, $room_id, $angeltype_count);
+                            NeededAngelType_add(null, $angeltype_id, $room->id, $angeltype_count);
                             if ($angeltype_count > 0) {
                                 $needed_angeltype_info[] = $angeltype['name'] . ': ' . $angeltype_count;
                             }
@@ -179,7 +182,8 @@ function admin_rooms()
             ]);
         } elseif ($request->input('show') == 'delete') {
             if ($request->hasPostData('ack')) {
-                $shifts = Shifts_by_room($room_id);
+                $room = Room::find($room_id);
+                $shifts = Shifts_by_room($room);
                 foreach ($shifts as $shift) {
                     $shift = Shift($shift['SID']);
 
@@ -187,7 +191,7 @@ function admin_rooms()
                     mail_shift_delete($shift);
                 }
 
-                Room_delete($room_id);
+                Room_delete($room);
 
                 success(sprintf(__('Room %s deleted.'), $name));
                 redirect(page_link_to('admin_rooms'));

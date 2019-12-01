@@ -1,5 +1,7 @@
 <?php
 
+use Engelsystem\Models\Room;
+
 /**
  * @return string
  */
@@ -316,7 +318,7 @@ function prepare_rooms($file)
     $data = read_xml($file);
 
     // Load rooms from db for compare with input
-    $rooms = Rooms();
+    $rooms = Room::all();
     // Contains rooms from db with from_frab==true
     $rooms_db = [];
     // Contains all rooms from db
@@ -324,11 +326,11 @@ function prepare_rooms($file)
     // Contains all rooms from db and frab
     $rooms_import = [];
     foreach ($rooms as $room) {
-        if ($room['from_frab']) {
-            $rooms_db[] = $room['Name'];
+        if ($room->from_frab) {
+            $rooms_db[] = $room->name;
         }
-        $rooms_db_all[] = $room['Name'];
-        $rooms_import[$room['Name']] = $room['RID'];
+        $rooms_db_all[] = $room->name;
+        $rooms_import[$room->name] = $room->id;
     }
 
     $events = $data->vcalendar->vevent;
@@ -362,10 +364,10 @@ function prepare_events($file, $shifttype_id, $add_minutes_start, $add_minutes_e
     global $rooms_import;
     $data = read_xml($file);
 
-    $rooms = Rooms();
+    $rooms = Room::all();
     $rooms_db = [];
     foreach ($rooms as $room) {
-        $rooms_db[$room['Name']] = $room['RID'];
+        $rooms_db[$room->name] = $room->id;
     }
 
     $events = $data->vcalendar->vevent;

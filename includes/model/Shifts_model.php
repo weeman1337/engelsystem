@@ -1,6 +1,7 @@
 <?php
 
 use Engelsystem\Database\DB;
+use Engelsystem\Models\Room;
 use Engelsystem\Models\User\User;
 use Engelsystem\ShiftsFilter;
 use Engelsystem\ShiftSignupState;
@@ -17,9 +18,9 @@ function Shifts_by_angeltype($angeltype)
         WHERE `NeededAngelTypes`.`angel_type_id` = ?
         AND `NeededAngelTypes`.`count` > 0
         AND `Shifts`.`PSID` IS NULL
-        
+
         UNION
-        
+
         SELECT DISTINCT `Shifts`.* FROM `Shifts`
         JOIN `NeededAngelTypes` ON `NeededAngelTypes`.`room_id` = `Shifts`.`RID`
         WHERE `NeededAngelTypes`.`angel_type_id` = ?
@@ -45,9 +46,9 @@ function Shifts_free($start, $end)
             AND (SELECT SUM(`count`) FROM `NeededAngelTypes` WHERE `NeededAngelTypes`.`shift_id`=`Shifts`.`SID`)
             > (SELECT COUNT(*) FROM `ShiftEntry` WHERE `ShiftEntry`.`SID`=`Shifts`.`SID` AND `freeloaded`=0)
             AND `Shifts`.`PSID` IS NULL
-        
+
             UNION
-        
+
             SELECT *
             FROM `Shifts`
             WHERE (`end` > ? AND `start` < ?)
@@ -80,14 +81,14 @@ function Shifts_from_frab()
 }
 
 /**
- * @param array|int $room
+ * @param Room $room
  * @return array[]
  */
-function Shifts_by_room($room)
+function Shifts_by_room(Room $room)
 {
     return DB::select(
         'SELECT * FROM `Shifts` WHERE `RID`=? ORDER BY `start`',
-        [is_array($room) ? $room['RID'] : $room]
+        [$room->id]
     );
 }
 
@@ -98,9 +99,9 @@ function Shifts_by_room($room)
 function Shifts_by_ShiftsFilter(ShiftsFilter $shiftsFilter)
 {
     $sql = 'SELECT * FROM (
-      SELECT DISTINCT `Shifts`.*, `ShiftTypes`.`name`, `Room`.`Name` AS `room_name`
+      SELECT DISTINCT `Shifts`.*, `ShiftTypes`.`name`, `rooms`.`name` AS `room_name`
       FROM `Shifts`
-      JOIN `Room` USING (`RID`)
+      JOIN `rooms` ON `Shifts`.`RID` = `rooms`.`id`
       JOIN `ShiftTypes` ON `ShiftTypes`.`id` = `Shifts`.`shifttype_id`
       JOIN `NeededAngelTypes` ON `NeededAngelTypes`.`shift_id` = `Shifts`.`SID`
       WHERE `Shifts`.`RID` IN (' . implode(',', $shiftsFilter->getRooms()) . ')
@@ -111,9 +112,9 @@ function Shifts_by_ShiftsFilter(ShiftsFilter $shiftsFilter)
 
       UNION
 
-      SELECT DISTINCT `Shifts`.*, `ShiftTypes`.`name`, `Room`.`Name` AS `room_name`
+      SELECT DISTINCT `Shifts`.*, `ShiftTypes`.`name`, `rooms`.`name` AS `room_name`
       FROM `Shifts`
-      JOIN `Room` USING (`RID`)
+      JOIN `rooms` ON `Shifts`.`RID` = `rooms`.`id`
       JOIN `ShiftTypes` ON `ShiftTypes`.`id` = `Shifts`.`shifttype_id`
       JOIN `NeededAngelTypes` ON `NeededAngelTypes`.`room_id`=`Shifts`.`RID`
       WHERE `Shifts`.`RID` IN (' . implode(',', $shiftsFilter->getRooms()) . ')
@@ -624,7 +625,7 @@ function Shift_create($shift)
 function Shifts_by_user($userId, $include_freeload_comments = false)
 {
     return DB::select('
-          SELECT 
+          SELECT
               `ShiftTypes`.`id` AS `shifttype_id`,
               `ShiftTypes`.`name`,
               `ShiftEntry`.`id`,
@@ -635,11 +636,13 @@ function Shifts_by_user($userId, $include_freeload_comments = false)
               `ShiftEntry`.`Comment`,
               ' . ($include_freeload_comments ? '`ShiftEntry`.`freeload_comment`, ' : '') . '
               `Shifts`.*,
-              `Room`.*
+              `rooms`.*,
+              `rooms`.`id` AS `room_id`,
+              `rooms`.`name` AS `room_name`
           FROM `ShiftEntry`
           JOIN `Shifts` ON (`ShiftEntry`.`SID` = `Shifts`.`SID`)
           JOIN `ShiftTypes` ON (`ShiftTypes`.`id` = `Shifts`.`shifttype_id`)
-          JOIN `Room` ON (`Shifts`.`RID` = `Room`.`RID`)
+          JOIN `rooms` ON (`Shifts`.`RID` = `rooms`.`id`)
           WHERE `UID` = ?
           ORDER BY `start`
       ',
