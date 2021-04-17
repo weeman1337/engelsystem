@@ -1,12 +1,69 @@
 {% macro toolbar_item(label, link, active_page, icon) %}
-    <li{% if page() == active_page %} class="active"{% endif %}>
-        <a href="{{ link }}">
-            {% if icon %}<span class="{% if 'glyphicon-' in icon %}glyphicon {% endif %}{{ icon }}"></span>{% endif %}
+    <li class="nav-item">
+        <a class="nav-link{% if page() == active_page %} active{% endif %}" href="{{ link }}">
+            {% if icon %}<span class="{% if 'bi-' in icon %}bi {% endif %}{{ icon }}"></span>{% endif %}
             {{ label|raw }}
         </a>
     </li>
 {% endmacro %}
 
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark border-bottom border-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <span class="icon-icon_angel"></span>
+            <strong class="visible-lg-inline">{{ config('app_name')|upper }}</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {{ menu() }}
+
+            {% if config('header_items') %}
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    {% for text,link in config('header_items', {}) %}
+                        <li class="nav-item">
+                            <a href="{{ link|replace({'%lang%': session_get('locale')|split('_')[0]})|escape('html_attr') }}">
+                                {{ text }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if is_user() %}
+                    {{ _self.toolbar_item(menuUserShiftState(user), url('shifts', {'action': 'next'}), '', 'glyphicon-time') }}
+                {% elseif has_permission_to('register') and config('registration_enabled') %}
+                    {{ _self.toolbar_item(__('Register'), url('register'), 'register', 'glyphicon-plus') }}
+                {% endif %}
+
+                {% if has_permission_to('login') %}
+                    {{ _self.toolbar_item(__('Login'), url('login'), 'login', 'glyphicon-log-in') }}
+                {% endif %}
+
+                {% if is_user() and has_permission_to('user_messages') %}
+                    {{ _self.toolbar_item(menuUserMessages(), url('user-messages'), 'user-messages', 'glyphicon-envelope') }}
+                {% endif %}
+
+                {{ menuUserHints() }}
+
+                {% if has_permission_to('user_myshifts') %}
+                    {{ _self.toolbar_item(user.name, url('users', {'action': 'view'}), 'users', 'icon icon-icon_angel') }}
+                {% endif %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {{ menuUserSubmenu()|join(" ")|raw }}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         {% block navbar %}
@@ -24,7 +81,6 @@
                     <strong class="visible-lg-inline">{{ config('app_name')|upper }}</strong>
                 </a>
             </div>
-
             {% block menu %}
                 <div class="collapse navbar-collapse" id="navbar-offcanvas">
                     {% block menu_items %}
@@ -53,11 +109,11 @@
                             {% endif %}
 
                             {% if has_permission_to('login') %}
-                                {{ _self.toolbar_item(__('Login'), url('login'), 'login', 'glyphicon-log-in') }}
+                                {{ _self.toolbar_item(__('Login'), url('login'), 'login', 'bi-box-arrow-in-right') }}
                             {% endif %}
 
                             {% if is_user() and has_permission_to('user_messages') %}
-                                {{ _self.toolbar_item(menuUserMessages(), url('user-messages'), 'user-messages', 'glyphicon-envelope') }}
+                                {{ _self.toolbar_item(menuUserMessages(), url('user-messages'), 'user-messages', 'bi-envelope') }}
                             {% endif %}
 
                             {{ menuUserHints() }}
@@ -84,3 +140,4 @@
         {% endblock %}
     </div>
 </div>
+-->
