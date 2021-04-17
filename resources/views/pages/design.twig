@@ -6,6 +6,16 @@
 
 {% set colors=['success', 'info', 'warning', 'danger'] %}
 {% set types=['default', 'primary', 'success', 'info', 'warning', 'danger'] %}
+{% set types_color=[
+    ['primary', 'light'],
+    ['secondary', 'light'],
+    ['success', 'light'],
+    ['danger', 'light'],
+    ['warning', 'dark'],
+    ['info', 'dark'],
+    ['light', 'dark'],
+    ['dark', 'light'],
+] %}
 {% set types_buttons=types|merge(['link']) %}
 {% set lipsum='Lorem ipsum dolor sit amet, consectetur adipisici elit…' %}
 {% set linksum='Lorem ipsum! Dolor <a href="#">link</a> amet, consectetur adipisici elit!' %}
@@ -113,10 +123,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h3>Labels</h3>
+                <h3>Badges</h3>
                 <p>
-                    {% for type in types %}
-                        <span class="label label-{{ type }}">{{ type|capitalize }}</span>
+                    {% for type in types_color %}
+                        <span class="badge bg-{{ type[0] }} text-{{ type[1] }}">{{ type[0]|capitalize }}</span>
                     {% endfor %}
                 </p>
             </div>
