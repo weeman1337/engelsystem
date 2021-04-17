@@ -49,8 +49,9 @@ $brand-danger:          #d9534f;
 //
 //## Settings for some of the most global styles.
 
-//** Background color for `<body>`.
-$body-bg:               #060606;
+$body-bg:    #060606;
+$body-color: $gray-light;
+
 //** Global text color on `<body>`.
 $text-color:            $gray-light;
 $text-muted: $gray-light;
