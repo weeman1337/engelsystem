@@ -1,6 +1,9 @@
 // select 2 variables
 $cursor-disabled: false;
 
+$link-decoration: none !default;
+$link-hover-decoration: underline !default;
+
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import "~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css";
@@ -15,11 +18,6 @@ body {
 
 .footer a {
   color: $text-muted;
-}
-
-.first {
-  clear: both;
-  margin-top: 30px;
 }
 
 .text-big {
