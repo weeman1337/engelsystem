@@ -199,8 +199,10 @@
                         {{ f.select('form-input-select', {'lorem': 'Ipsum', 'dolor': 'Sit'}, 'Select', 'dolor') }}
                     </div>
                     <div class="col-md-2">
-                        Button<br>
-                        {{ f.button('Button', {'btn_type': 'default'}) }}
+                        <label class="form-label">Button</label>
+                        <div>
+                            {{ f.button('Button', {'btn_type': 'default'}) }}
+                        </div>
                     </div>
                     <div class="col-md-2">
                         Submit button<br>

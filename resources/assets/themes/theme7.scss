@@ -52,7 +52,7 @@ $table-border-color:            $gray;
 
 //== changed Buttons
 
-$btn-default-color:              $link-color;
+$btn-color:              $link-color;
 $btn-default-bg:                 $gray-darker;
 
 $btn-default-border:             $brand-primary;
@@ -78,7 +78,7 @@ $input-bg:                       $gray-darker;
 
 $input-color:                    $link-color;
 
-$input-border:                   $brand-primary;
+$input-border-color:             $brand-primary;
 
 $input-group-addon-bg:           $gray-lighter;
 
@@ -159,8 +159,6 @@ $panel-primary-text:          $gray-darker;
 //== changed Badges
 
 $badge-color:                 #fff;
-
-$badge-link-hover-color:      #fff;
 
 
 //== changed Type

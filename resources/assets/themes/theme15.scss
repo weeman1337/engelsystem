@@ -170,12 +170,12 @@ $table-border-color: $gray-dark;
 
 $btn-font-weight: normal;
 
-$btn-default-color: $dark-green;
+$btn-color: $dark-green;
 $btn-default-bg: $brand-primary;
 
 $btn-default-border: $brand-primary;
 
-$btn-primary-color: $btn-default-color;
+$btn-primary-color: $btn-color;
 $btn-primary-bg: $btn-default-bg;
 $btn-primary-border: $btn-default-border;
 
@@ -209,7 +209,7 @@ $input-bg-disabled: $gray-darker;
 //** Text color for `<input>`s
 $input-color: $text-color;
 //** `<input>` border color
-$input-border: $gray-dark;
+$input-border-color: $gray-dark;
 //** `<input>` border radius
 $input-border-radius: $border-radius-base;
 //** Border color for inputs on focus
@@ -236,7 +236,7 @@ $legend-border-color: $gray-dark;
 //** Background color for textual input addons
 $input-group-addon-bg: $gray-lighter;
 //** Border color for textual input addons
-$input-group-addon-border-color: $input-border;
+$input-group-addon-border-color: $input-border-color;
 
 //== Dropdowns
 //
@@ -762,7 +762,6 @@ $well-border: darken($well-bg, 7%);
 
 $badge-color: $dark-green;
 //** Linked badge text color on hover
-$badge-link-hover-color: $dark-green;
 $badge-bg: $brand-primary;
 
 //** Badge text color in active nav link

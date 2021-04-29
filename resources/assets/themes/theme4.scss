@@ -24,7 +24,7 @@ $body-bg:               #1d1d1b;
 
 //== changed Buttons
 
-$btn-default-color:              #fff;
+$btn-color:                      #fff;
 $btn-default-bg:                 lighten($gray-dark, 10%);
 
 $btn-primary-border:             darken($btn-default-bg, 10%);
@@ -76,8 +76,6 @@ $state-danger-border:            darken($state-danger-bg, 3%);
 //== changed Badges
 
 $badge-color:                 #fff;
-
-$badge-link-hover-color:      #fff;
 
 
 //== changed Type
