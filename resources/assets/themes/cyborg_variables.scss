@@ -37,11 +37,11 @@ $gray:                   #555; // #555
 $gray-light:             #999;   // #999
 $gray-lighter:           #eee; // #eee
 
-$primary:         #437aca;
-$success:         #99ba00;
-$info:            #0076ba;
-$warning:         #ffc600;
-$danger:          #d9534f;
+$primary:         #437aca !default;
+$success:         #99ba00 !default;
+$info:            #0076ba !default;
+$warning:         #ffc600 !default;
+$danger:          #d9534f !default;
 
 //== Scaffolding
 //
@@ -158,40 +158,6 @@ $table-bg-active:               $table-bg-hover;
 
 //** Border color for table and cell borders.
 $table-border-color:            $gray-dark;
-
-
-//== Buttons
-//
-//## For each of Bootstrap's buttons, define text, background and border color.
-
-$btn-font-weight:                normal;
-
-$btn-color:                      #000;
-$btn-default-bg:                 $gray-light;
-$btn-default-border:             darken($btn-default-bg, 10%);
-
-$btn-primary-color:              $btn-color;
-$btn-primary-bg:                 $primary;
-$btn-primary-border:             darken($btn-primary-bg, 10%);
-
-$btn-success-color:              $btn-color;
-$btn-success-bg:                 $success;
-$btn-success-border:             darken($btn-success-bg, 10%);
-
-$btn-info-color:                 $btn-color;
-$btn-info-bg:                    $info;
-$btn-info-border:                darken($btn-info-bg, 10%);
-
-$btn-warning-color:              $btn-color;
-$btn-warning-bg:                 $warning;
-$btn-warning-border:             darken($btn-warning-bg, 10%);
-
-$btn-danger-color:               $btn-color;
-$btn-danger-bg:                  $danger;
-$btn-danger-border:              darken($btn-danger-bg, 10%);
-
-$btn-link-disabled-color:        $gray-light;
-
 
 //== Forms
 //
@@ -569,7 +535,6 @@ $popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%
 //
 //##
 
-$label-default-bg:            $btn-default-bg;
 $label-primary-bg:            $primary;
 $label-success-bg:            $success;
 $label-info-bg:               $info;
@@ -760,23 +725,6 @@ $thumbnail-caption-padding:   9px;
 
 $well-bg:                     darken($gray-darker, 5%);
 $well-border:                 darken($well-bg, 7%);
-
-
-//== Badges
-//
-//##
-
-$badge-color:                 #000;
-$badge-bg:                    $primary;
-
-//** Badge text color in active nav link
-$badge-active-color:          $primary;
-//** Badge background color in active nav link
-$badge-active-bg:             #fff;
-
-$badge-font-weight:           bold;
-$badge-line-height:           1;
-
 
 //== Breadcrumbs
 //

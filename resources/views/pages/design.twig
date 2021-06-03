@@ -5,7 +5,17 @@
 {% block title %}{{ __('Design') }}{% endblock %}
 
 {% set colors=['success', 'info', 'warning', 'danger'] %}
-{% set types=['default', 'primary', 'success', 'info', 'warning', 'danger'] %}
+{% set types=[
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark'
+]
+%}
 {% set types_color=[
     ['primary', 'light'],
     ['secondary', 'light'],
