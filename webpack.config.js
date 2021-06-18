@@ -8,7 +8,7 @@ const nodeEnv = (process.env.NODE_ENV || 'development').trim();
 // eslint-disable-next-line
 const __DEV__ = nodeEnv !== 'production';
 
-const devtool = __DEV__ ? 'source-map' : '';
+const devtool = __DEV__ ? 'source-map' : undefined 
 
 const plugins = [
   new webpack.DefinePlugin({
