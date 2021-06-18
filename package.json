@@ -6,7 +6,7 @@
   "author": "https://github.com/engelsystem/engelsystem/contributors",
   "license": "GPL-2.0-or-later",
   "scripts": {
-    "build": "NODE_ENV=production npm run build:clean && npm run build:webpack",
+    "build": "(export NODE_ENV=production && npm run build:clean && npm run build:webpack)",
     "build:clean": "rimraf public/assets",
     "build:webpack": "webpack",
     "build:watch": "webpack --watch"
