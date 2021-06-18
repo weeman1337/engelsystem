@@ -127,6 +127,11 @@ return [
     ],
 
     'theme_info' => [
+        '0' => [
+            'navbar'        => 'light',
+            'navbar_bg'     => 'light',
+            'navbar_border' => 'dark',
+        ],
         '1' => [
             'navbar'        => 'dark',
             'navbar_bg'     => 'black',

@@ -61,6 +61,8 @@ class DesignController extends BaseController
         ];
 
         $theme = $request->get('theme');
+        $this->config->set('theme', (int) $theme);
+
         if (isset($themes[$theme])) {
             $data['theme'] = $theme;
         }
