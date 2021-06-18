@@ -1,5 +1,4 @@
 // 35c3 dark (2018)
-@import "cyborg_variables.scss";
 
 // Variables
 // --------------------------------------------------
@@ -21,6 +20,7 @@ $gray-light:             $gray;
 $gray-lighter:           lighten($gray, 15%);
 
 $brand-primary:         #0084b0; // FRESH
+$primary: #0084b0;
 $brand-success:         #00a356; // HOPE
 $brand-info:            $brand-primary;
 $brand-warning:         #f9b000; // GLINT
@@ -33,7 +33,8 @@ $body-bg:               #000;
 
 $text-color:            $gray-lighter;
 
-$link-hover-color:      lighten($link-color, 10%);
+$link-color:       $brand-primary;
+$link-hover-color: lighten($link-color, 10%);
 
 
 //== changed Typography
@@ -44,10 +45,14 @@ $headings-color:          $brand-primary;
 //== changed Tables
 
 $table-bg:                      $gray-darker;
-
 $table-bg-accent:               #111;
-
 $table-border-color:            $gray;
+
+
+// component
+
+$component-active-color:    #fff;
+$component-active-bg:       $primary;
 
 
 //== changed Buttons
@@ -91,10 +96,11 @@ $dropdown-fallback-border:       $brand-primary;
 
 $dropdown-divider-bg:            $dropdown-border;
 
-$dropdown-link-color:            $link-color;
+$dropdown-link-color: $link-color;
 
 $dropdown-link-hover-color:      $link-hover-color;
 
+$dropdown-bg:                    $gray-darker;
 $dropdown-link-hover-bg:         $dropdown-bg;
 
 
@@ -109,13 +115,13 @@ $navbar-default-link-active-color:         $brand-primary;
 $navbar-default-brand-color:               $brand-primary;
 $navbar-default-brand-hover-color:         lighten($brand-primary, 10%);
 
-
 //== changed Pagination
 
 $pagination-color:                     $brand-primary;
 $pagination-border:                    $brand-primary;
 
 $pagination-hover-color:               $gray-darker;
+$pagination-hover-bg:                  $component-active-bg;
 $pagination-hover-border:              $pagination-border;
 
 $pagination-active-color:              $pagination-hover-color;
@@ -165,6 +171,7 @@ $badge-color:                 #fff;
 
 $headings-small-color:        $gray-light;
 
+@import "cyborg_variables.scss";
 @import "cyborg_styles.scss";
 
 .messages .text-danger {

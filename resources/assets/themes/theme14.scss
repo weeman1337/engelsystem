@@ -1,5 +1,4 @@
 // rc3 teal
-@import "cyborg_variables.scss";
 
 //== Colors
 
@@ -25,7 +24,7 @@ $link-color:            #fff;
 
 //== Typography
 
-$font-face {
+@font-face {
     font-family: 'Montserrat';
     src: url('theme13/Montserrat-Regular.woff2') format('woff2'),
         url('theme13/Montserrat-Regular.woff') format('woff');
@@ -34,7 +33,7 @@ $font-face {
     font-display: swap;
 }
 
-$font-face {
+@font-face {
     font-family: 'Orbitron';
     src: url('theme13/Orbitron-Regular.woff2') format('woff2'),
         url('theme13/Orbitron-Regular.woff') format('woff');
@@ -118,6 +117,7 @@ $headings-small-color:        $gray-light;
 
 // Bootswatch
 // -----------------------------------------------------
+@import "cyborg_variables.scss";
 @import "cyborg_styles.scss";
 // Forms ======================================================================
 
