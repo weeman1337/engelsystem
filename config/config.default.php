@@ -137,6 +137,76 @@ return [
             'navbar_bg'     => 'black',
             'navbar_border' => 'dark',
         ],
+        '2' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '3' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '4' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '5' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '6' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '7' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '8' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '9' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '10' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '11' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '12' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '13' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '14' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
+        '15' => [
+            'navbar'        => 'dark',
+            'navbar_bg'     => 'black',
+            'navbar_border' => 'dark',
+        ],
     ],
 
     // Redirect to this site after logging in or when pressing the top-left button
