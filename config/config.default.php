@@ -137,7 +137,7 @@ return [
         ],
         7 => [
             'name' => 'Engelsystem 35c3 dark (2018)',
-            'navbar_classes' => 'navbar-dark bg-black border-dark',
+            'navbar_classes' => 'navbar-primary bg-black border-primary',
         ],
         6 => [
             'name' => 'Engelsystem 34c3 dark (2017)',
@@ -145,11 +145,11 @@ return [
         ],
         5 => [
             'name' => 'Engelsystem 34c3 light (2017)',
-            'navbar_classes' => 'navbar-dark bg-black border-dark',
+            'navbar_classes' => 'navbar-light bg-light',
         ],
         4 => [
             'name' => 'Engelsystem 33c3 (2016)',
-            'navbar_classes' => 'navbar-dark bg-black border-dark',
+            'navbar_classes' => 'navbar-dark bg-darker border-dark',
         ],
         3 => [
             'name' => 'Engelsystem 32c3 (2015)',
@@ -157,7 +157,7 @@ return [
         ],
         2 => [
             'name' => 'Engelsystem cccamp15',
-            'navbar_classes' => 'navbar-dark bg-black border-dark',
+            'navbar_classes' => 'navbar-light bg-light',
         ],
         11 => [
             'name' => 'Engelsystem high contrast',

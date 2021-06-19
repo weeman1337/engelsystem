@@ -9,11 +9,16 @@ $gray-light:             lighten($gray, 15%);
 $gray-lighter:           lighten($gray-light, 15%);
 $black:                  #000;
 
-$brand-primary:         #05b9ec;
-$brand-success:         #02fae0;
-$brand-info:            #025d83;
-$brand-warning:         #6800e7;
-$brand-danger:          #b239ff;
+$brand-primary: #05b9ec;
+$primary:       $brand-primary;
+$brand-success: #02fae0;
+$success:       $brand-success;
+$brand-info:    #025d83;
+$info:          $brand-info;
+$brand-warning: #6800e7;
+$warning:       $brand-warning;
+$brand-danger:  #b239ff;
+$danger:        $brand-danger;
 
 
 //== Scaffolding
@@ -43,8 +48,8 @@ $link-color:            #fff;
 }
 
 $font-family-sans-serif: 'Montserrat', Helvetica Neue, Helvetica, Arial, sans-serif;
-$font-family-serif:       'Orbitron', Georgia, "Times New Roman", Times, serif;
-$headings-font-family:    $font-family-serif;
+$font-family-serif:      'Orbitron', Georgia, "Times New Roman", Times, serif;
+$headings-font-family:   $font-family-serif;
 
 //== Buttons
 

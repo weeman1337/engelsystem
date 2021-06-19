@@ -39,10 +39,15 @@ $gray-light: #888; // #999
 $gray-lighter: #adafae; // #eee
 
 $brand-primary: #fe7900;
+$primary:       $brand-primary;
 $brand-success: #00c466;
-$brand-info: #00c466;
+$success:       $brand-success;
+$brand-info:    #00c466;
+$info:          $brand-info;
 $brand-warning: #d10069;
-$brand-danger: #d10069;
+$warning:       $brand-warning;
+$brand-danger:  #d10069;
+$danger:        $brand-danger;
 
 $plum: #1f0229;
 $dark-green: #00292d;

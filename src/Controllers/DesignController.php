@@ -65,6 +65,7 @@ class DesignController extends BaseController
 
         if (isset($themes[$themeId])) {
             $data['theme'] = $themes[$themeId];
+            $data['themeId'] = $themeId;
         }
 
         return $this->response->withView(
